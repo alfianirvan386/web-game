@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -107,7 +108,7 @@ export default function ProfilPage() {
             .order('updated_at', { ascending: false })
             
           if (progressData && isMounted) setProgressList(progressData as ProgressItem[])
-        } catch (err) {}
+        } catch {}
 
         if (isMounted) {
           const uniqueChannelName = `profil-realtime-${userId}-${Date.now()}`
@@ -195,7 +196,7 @@ export default function ProfilPage() {
   }
 
   const handleLogout = async () => {
-    try { await supabase.auth.signOut() } catch (_) {}
+    try { await supabase.auth.signOut() } catch {}
     finally { router.push('/login') }
   }
 
@@ -245,7 +246,7 @@ export default function ProfilPage() {
                     {uploadingAvatar ? (
                        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
                     ) : userData.avatar_url ? (
-                       <img src={userData.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                       <Image src={userData.avatar_url} alt="Profile" className="w-full h-full object-cover" width={112} height={112} />
                     ) : (
                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white">👤</div>
                     )}

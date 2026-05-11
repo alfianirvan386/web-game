@@ -26,9 +26,9 @@ export default function LoginPage() {
       if (loginError) throw loginError
 
       router.push('/profil')
-    } catch (err: any) {
-      setError(err.message || 'Email atau password salah.')
-    } finally {
+    } catch (err: unknown) {
+  if (err instanceof Error) console.error(err.message)
+} finally {
       setLoading(false)
     }
   }
